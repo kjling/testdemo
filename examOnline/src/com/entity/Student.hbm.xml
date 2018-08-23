@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping 
+			PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.entity.Student" table="db_student" lazy="false">
+		<!-- student id -->
+		<id name="sysid" type="integer">
+			<!-- 主键生成策略 -->
+			<generator class="native"></generator>
+		</id>
+		<!-- 学号  -->
+		<property name="studentID" unique="true" not-null="true"></property>
+		<!-- 密码 -->
+		<property name="password" not-null="true"></property>
+		<!-- 名字 -->
+		<property name="studentName"></property>
+		<!-- 成绩 -->
+		<property name="result"></property>
+		<!-- 班级 -->
+		<property name="sclass" not-null="true"></property>
+	</class>
+</hibernate-mapping>

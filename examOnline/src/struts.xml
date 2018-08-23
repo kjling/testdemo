@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<!-- 设置常量实现动态调用 -->
+	<constant name="struts.enable.DynamicMethodInvocation" value="true" />
+	
+	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
+	<!--开发模式-->
+	<constant name="struts.devMode" value="true" />
+	<!-- 解决jsp提交到action中文乱码问题 -->
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+    <!-- Add packages here -->
+    
+   <package name="struts2" namespace="/" extends="struts-default">
+			<!-- 学生登入成功的话 -->
+   		<action name="login" class="com.action.LoginAction">
+   			<!-- http://m.blog.csdn.net/blog/vipyhd/41248169  解决chain报错但是流程正确的问题 -->
+			<result name="studentSuccess" type="chain" >
+				<!-- 获取随机的题目 -->
+				<param name="actionName">getRandomSubject</param>
+				<param name="namespace">/</param>
+			</result>
+			<!-- 教师登录成功的话 -->
+			<result name="teacherSuccess">/teacher/teacher.jsp</result>
+			<!-- 账号或者密码错误 -->
+			<result name="input">/error.jsp</result>
+   		</action>
+   		<!-- ajax验证学号有没有重复 -->
+   		<action name="checkStudentID" class="com.action.CheckStudentID">
+   			<result name="success">studentAdd.jsp</result>
+   		</action>
+		<!-- 获取随机的题目 -->
+   		<action name="getRandomSubject" class="com.action.GetRandomSubjects">
+   			<result name="success">/student/index.jsp</result>
+   		</action>
+   		<action name="submitExam" class="com.action.SubmitExamAction"><!-- 计算分数 -->
+   			<result name="success">/student/result.jsp</result>
+   		</action>
+		<!-- 显示答案和解析 -->
+   		<action name="showSubjectAnswer" class="com.action.ShowSubjectAnswerAction">
+   			<result name="success">/student/showAnswer.jsp</result>
+   		</action>
+		<!-- 根据姓名查找学生 -->
+   		<action name="queryStudentByName" class="com.action.QueryStudentByNameAction">
+   			<result name="success">/teacher/studentManager.jsp</result>	
+   		</action>
+   		<!-- 根据班级来查找学生 -->
+   		<action name="queryStudentByClass" class="com.action.QueryStudentByClassAction">
+   			<result name="success">/teacher/studentManagerByClass.jsp</result>
+   		</action>
+   		<!-- 根据学号查找学生 -->
+   		<action name="queryStudentByID" class="com.action.QueryStudentByIDAction">
+   			<result name="success">/teacher/studentManager.jsp</result>
+   		</action>
+   		<!-- 添加学生 -->
+   		<action name="studentAdd" class="com.action.StudentAddAction">
+   			<result name="success">/teacher/studentAdd.jsp</result>
+   		</action>
+   		<!-- 添加试题 -->
+   		<action name="subjectAdd" class="com.action.SubjectAddAction">
+   			<result name="success" type="redirect">/teacher/subjectAdd.jsp</result>
+   			<result name="error">/teacher/subjectAdd.jsp</result>
+   		</action>
+   		<!--查询题目 -->
+   		<action name="querySubject" class="com.action.QuerySubjectAction">
+   			<result name="success">/teacher/subjectManager.jsp</result>
+   		</action>
+   		<!--模糊匹配查询题目 -->
+   		<action name="querySubjectLike" class="com.action.QuerySubjecLiketAction">
+   			<result name="success">/teacher/subjectLikeManager.jsp</result>
+   		</action>
+   		<!-- 显示题目详情 -->
+   		<action name="subjectPaticular" class="com.action.SubjectPaticularAction">
+   			<result name="success">/teacher/subjectshow.jsp</result>
+   		</action>
+   		<!-- 更新题目前-显示题目的详情 -->
+   		<action name="subjectUpadateBefore" class="com.action.SubjectUpdateBefore">
+   			<result name="success">/teacher/subjectUpdate.jsp</result>
+   		</action>
+   		<!-- 更新试题 -->
+   		<action name="subjectUpadate" class="com.action.SubjectUpdateAction">
+   			<result name="success">/teacher/subjectUpdate.jsp</result>
+   		</action>
+   		<!-- 删除试题  -->
+   		<action name="subjectDelete" class="com.action.SubjectDeleteAction">
+   			<result name="success" type="chain">
+   				<param name="actionName">querySubject</param>
+				<param name="namespace">/</param>
+   			</result>
+   		</action>
+   		<action name="studentQuery" class="com.action.StudentQuery" >
+   			<result name="success">/teacher/studentManager.jsp</result>
+   		</action>
+	</package>
+</struts>

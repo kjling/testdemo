@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping 
+			PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.entity.Subject" table="db_subject" lazy="false">
+		<!-- student id -->
+		<id name="stID" type="integer">
+			<!-- 主键生成策略 -->
+			<generator class="native"></generator>
+		</id>
+		<property name="stTitle" not-null="true"></property>
+		<property name="stOptionA" not-null="true"></property>
+		<property name="stOptionB" not-null="true"></property>
+		<property name="stOptionC" not-null="true"></property>
+		<property name="stOptionD" not-null="true"></property>
+		<property name="stAnswer" not-null="true"></property>
+		<property name="stParse"></property>
+	</class>
+</hibernate-mapping>
